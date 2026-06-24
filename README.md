@@ -22,3 +22,28 @@ Churn → Customer is likely to leave
 No Churn → Customer is likely to continue
 
 The main goal is not only to predict churn accurately but also to identify why a customer is leaving so that companies can take preventive retention actions.
+
+2. Domain Understanding
+Domain: Machine Learning + Customer Analytics
+
+Customer churn prediction is a binary classification problem in Machine Learning.
+
+The input data contains customer attributes, and the model learns patterns from previous customer behavior.
+
+Example:
+
+A customer with:
+
+Low tenure
+High monthly charges
+Multiple complaints
+Month-to-month contract
+
+may have a higher probability of leaving.
+
+Companies can use these predictions to:
+
+Provide personalized offers
+Improve customer support
+Reduce customer loss
+Increase customer lifetime value
