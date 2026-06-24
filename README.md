@@ -47,3 +47,39 @@ Provide personalized offers
 Improve customer support
 Reduce customer loss
 Increase customer lifetime value
+
+3.Existing base paper work:
+Base Paper:
+
+Customer Churn Prediction Using Machine Learning with Explainable AI
+
+The base paper proposed a machine learning framework for telecom customer churn prediction.
+
+The authors performed:
+
+Data preprocessing
+Feature selection
+Model training
+Performance evaluation
+Model explainability analysis
+
+The paper compared multiple machine learning algorithms:
+
+Logistic Regression
+Decision Tree
+Random Forest
+XGBoost
+
+Among all models, XGBoost achieved the best performance.
+
+Results:
+
+Model	Accuracy	F1 Score
+Logistic Regression	87.8%	0.153
+Decision Tree	92.2%	0.614
+Random Forest	95.4%	0.796
+XGBoost	96.2%	0.836
+
+The authors selected XGBoost as the final prediction model because it provided better accuracy and classification performance.
+
+The paper also implemented SHAP (SHapley Additive exPlanations) to explain the prediction results and identify which customer features influence churn decisions
