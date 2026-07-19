@@ -247,4 +247,16 @@ for name, m in [('Random Forest', rf_final), ('XGBoost', xgb_final),
         'Test F1': round(test_f1, 4),
         'F1 Gap': round(train_f1 - test_f1, 4)
     })
+overfit_df = pd.DataFrame(overfit_results)
+print(overfit_df.to_string(index=False))
+print("\nRule of thumb: Gap > 0.10 (10 percentage points) suggests meaningful overfitting.")
+print("Gap < 0.05 is generally healthy.")
 
+# --- Save everything the app needs ---
+joblib.dump(stack_model, 'churn_model.pkl')
+joblib.dump(scaler, 'scaler.pkl')
+joblib.dump(X_train.columns.tolist(), 'feature_columns.pkl')
+joblib.dump(best_threshold, 'best_threshold.pkl')
+xgb_final.save_model('churn_shap_model.json')  # native format, for SHAP explanations in the app
+
+print("\nAll model files saved successfully.")
