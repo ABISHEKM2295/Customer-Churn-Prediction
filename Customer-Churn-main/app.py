@@ -47,58 +47,7 @@ if st.button("Predict Churn Risk", type="primary"):
         'tenure': tenure, 'PhoneService': 1, 'PaperlessBilling': 1 if paperless_billing == "Yes" else 0,
         'MonthlyCharges': monthly_charges, 'TotalCharges': total_charges,
     }
-    for col in feature_columns:
-        if col not in raw:
-            raw[col] = 0
-
-    if internet_service == "Fiber optic":
-        raw['InternetService_Fiber optic'] = 1
-    elif internet_service == "No":
-        raw['InternetService_No'] = 1
-    if contract == "One year":
-        raw['Contract_One year'] = 1
-    elif contract == "Two year":
-        raw['Contract_Two year'] = 1
-    if payment_method == "Electronic check":
-        raw['PaymentMethod_Electronic check'] = 1
-    elif payment_method == "Mailed check":
-        raw['PaymentMethod_Mailed check'] = 1
-    elif payment_method == "Credit card (automatic)":
-        raw['PaymentMethod_Credit card (automatic)'] = 1
-    if online_security == "Yes":
-        raw['OnlineSecurity_Yes'] = 1
-    elif online_security == "No internet service":
-        raw['OnlineSecurity_No internet service'] = 1
-    if tech_support == "Yes":
-        raw['TechSupport_Yes'] = 1
-    elif tech_support == "No internet service":
-        raw['TechSupport_No internet service'] = 1
-
-    input_df = pd.DataFrame([raw])[feature_columns].astype(float)
-    input_df[['tenure', 'MonthlyCharges', 'TotalCharges']] = scaler.transform(
-        input_df[['tenure', 'MonthlyCharges', 'TotalCharges']]
-    )
-
-    # Prediction comes from the stacked ensemble
-    prob = model.predict_proba(input_df)[0][1]
-
-    # Explanation comes from the separate tuned XGBoost (native format, SHAP-compatible)
-    shap_vals = explainer.shap_values(input_df)[0]
-
-    st.divider()
-    colA, colB = st.columns([1, 2])
-
-    with colA:
-        st.metric("Churn Probability", f"{prob:.1%}")
-        risk = "🔴 High" if prob > 0.6 else ("🟡 Medium" if prob > best_threshold else "🟢 Low")
-        st.metric("Risk Level", risk)
-        st.caption(f"Decision threshold: {best_threshold:.3f}")
-
-    with colB:
-        shap_series = pd.Series(shap_vals, index=feature_columns)
-        top_factors = shap_series.sort_values(ascending=False).head(5)
-        st.write("**Top factors influencing this prediction:**")
-        st.bar_chart(top_factors)
+   
 
     st.info("💡 Recommended Action: " + (
         "Offer contract upgrade incentive and review payment method." if prob > best_threshold
